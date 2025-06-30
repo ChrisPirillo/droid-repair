@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Droid Repair Math Game - Jedi Mission</title>
+    <meta name="description" content="Master math skills and repair droids in this engaging Jedi-themed educational game. Solve geometry, algebra, measurement, fractions, and data analysis problems.">
+    <meta name="keywords" content="Droid Repair Math Game, Math Game, Jedi, Droid, Repair, Math, Game, Educational Game, Kids Math, Online Math, Math Problems, Geometry, Algebra, Measurement, Fractions, Data Analysis, Chris Pirillo, @ChrisPirillo">
+    <link rel="canonical" href="https://pirillo.com/arcade/droid-repair.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pirillo.com/arcade/droid-repair.html">
+    <meta property="og:title" content="Droid Repair Math Game - Jedi Mission">
+    <meta property="og:description" content="Master math skills and repair droids in this engaging Jedi-themed educational game. Solve geometry, algebra, measurement, fractions, and data analysis problems.">
+    <meta property="og:image" content="https://pirillo.com/arcade/images/droid-repair.png">
+    <meta property="og:image:alt" content="Screenshot of the Droid Repair Math Game showing an R2-D2 inspired droid and math problem.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pirillo.com/arcade/droid-repair.html">
+    <meta property="twitter:title" content="Droid Repair Math Game - Jedi Mission">
+    <meta property="twitter:description" content="Master math skills and repair droids in this engaging Jedi-themed educational game. Solve geometry, algebra, measurement, fractions, and data analysis problems.">
+    <meta property="twitter:image" content="https://pirillo.com/arcade/images/droid-repair.png">
+    <meta property="twitter:image:alt" content="Screenshot of the Droid Repair Math Game showing an R2-D2 inspired droid and math problem.">
+    <meta name="twitter:creator" content="@ChrisPirillo">
+    <meta name="author" content="Chris Pirillo">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Droid Repair Math Game - Jedi Mission",
+      "description": "Master math skills and repair droids in this engaging Jedi-themed educational game. Solve geometry, algebra, measurement, fractions, and data analysis problems.",
+      "url": "https://pirillo.com/arcade/droid-repair.html",
+      "image": "https://pirillo.com/arcade/images/droid-repair.png",
+      "author": {
+        "@type": "Person",
+        "name": "Chris Pirillo",
+        "url": "https://twitter.com/ChrisPirillo"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pirillo.com Arcade",
+        "url": "https://pirillo.com/arcade/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pirillo.com/favicon.ico"
+        }
+      }
+    }
+    </script>
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/play/v19/6ae84K2xU_Y_Tf7J-B_3.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Google Font: Play - Optimized with font-display: swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN - Deferred loading if possible, but for simplicity and to avoid breaking layout, keeping it as-is for now as it's a single file. For production, consider purging unused CSS and self-hosting. -->
+    <script src="https://cdn.tailwindcss.com" async></script>
+
+    <style>
+        /* Critical CSS inlined to minimize render-blocking */
+        /* Base styles for full viewport coverage and dark theme */
+        html, body {
+            height: 100%; /* Ensure html and body explicitly take full height */
+            width: 100%; /* Ensure html and body explicitly take full width */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent any scrolling */
+            font-family: 'Play', sans-serif; /* Changed font to Play */
+            background-color: #0d1117;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at center, #1a202c 0%, #0d1117 100%);
+            box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+            /* Use --vh for consistent height on mobile, fallback to 100vh */
+            min-height: 100vh; /* Fallback for older browsers */
+            min-height: calc(var(--vh, 1vh) * 100); /* Dynamic viewport height for mobile */
+        }
+
+        /* --- New Layout Strategy: Grid-based for desktop, Flex for mobile --- */
+        .game-container {
+            background-color: #1a202c;
+            border-radius: 1.5rem; /* More rounded corners */
+            padding: 1.5rem; /* Increased padding */
+            box-shadow: 0 0 60px rgba(0, 255, 255, 0.6), 0 0 120px rgba(0, 255, 255, 0.3); /* Stronger glow */
+            border: 3px solid #00ccff; /* Thicker border */
+            width: calc(100% - 2rem); /* Maximize width, accounting for body padding */
+            max-width: 1200px; /* Keep a max-width for desktop to prevent it from being too wide */
+            height: calc(100% - 2rem); /* Adjusted to 100% of parent height minus padding */
+            /* Ensure game-container also tries to take full height of its parent (body) */
+            display: grid;
+            /* Adjusted grid-template-columns to center the two main content areas */
+            /* This creates a flexible left margin, the 1fr left panel, 2fr main content, and flexible right margin */
+            grid-template-columns: auto 1fr 2fr auto;
+            grid-template-rows: auto 1fr auto; /* Header | Main Rows | Footer */
+            gap: 1.5rem; /* Spacing between grid items */
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Header (top-center) */
+        .game-header-section {
+            grid-column: 1 / -1; /* Spans all columns */
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 204, 255, 0.3);
+            position: relative;
+        }
+
+        /* Left Panel (score, progress, feedback, hint) */
+        .game-left-panel {
+            grid-column: 2 / 3; /* Now in the second grid column, allowing for auto-margin on left */
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1rem;
+            background-color: rgba(26, 32, 44, 0.6); /* Semi-transparent panel */
+            border-radius: 1rem;
+            border: 1px solid rgba(0, 204, 255, 0.2);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Content (droid, problem, visual aid) */
+        .game-main-content {
+            grid-column: 3 / 4; /* Now in the third grid column */
+            grid-row: 2 / 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-color: rgba(26, 32, 44, 0.8); /* More opaque main panel */
+            border-radius: 1.5rem;
+            border: 2px solid #00ccff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Footer (input, buttons) */
+        .game-footer-section {
+            grid-column: 1 / -1; /* Spans all columns */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+            padding-top: 0.5rem;
+            /* Removed border-top: 1px solid rgba(0, 204, 255, 0.3); */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 1rem; /* Space between input and buttons */
+        }
+
+        /* Starfield background effect */
+        .starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #007bff;
+            background-image: linear-gradient(to bottom right, #007bff, #0056b3);
+            color: white;
+            padding: 0.75rem 1.5rem; /* Larger buttons */
+            border-radius: 0.75rem; /* More rounded */
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em; /* More pronounced letter spacing */
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-image: linear-gradient(to bottom right, #0056b3, #003f7f);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Input field */
+        .input-field {
+            background-color: #2d3748;
+            border: 2px solid #4a5568; /* Thicker border */
+            color: #e0e0e0;
+            padding: 0.75rem 1rem; /* Larger padding */
+            border-radius: 0.75rem; /* More rounded */
+            width: 100%;
+            max-width: 300px; /* Wider input for readability */
+            text-align: center;
+            font-size: 1.1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: #00ccff;
+            box-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+            outline: none;
+        }
+
+        /* Feedback messages */
+        .feedback-message {
+            font-weight: bold;
+            min-height: 2rem; /* Taller for better visibility */
+            font-size: 1rem;
+            line-height: 1.3;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.1); /* Subtle border even when empty */
+            color: #e0e0e0; /* Default text color */
+            display: flex; /* Use flex to center placeholder text */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            /* Initially hidden, will be shown by JS */
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+        .feedback-message.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+        .correct { color: #48bb78; border: 1px solid #48bb78; }
+        .incorrect { color: #f56565; border: 1px solid #f56565; }
+        .hint { color: #f6e05e; border: 1px solid #f6e05e; }
+
+        /* Droid SVG */
+        .r2d2-droid {
+            width: 150px; /* Larger droid */
+            height: 150px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .r2d2-droid.repaired {
+            transform: rotateY(360deg) scale(1.1) translateY(-5px); /* More pronounced animation */
+        }
+
+        .r2d2-droid svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Progress bar */
+        .progress-bar-container {
+            width: 90%;
+            background-color: #4a5568;
+            border-radius: 0.75rem; /* More rounded */
+            height: 15px; /* Thicker bar */
+            margin-top: 1.5rem;
+            overflow: hidden;
+            border: 2px solid #6b7280;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #00ccff;
+            width: 0%;
+            border-radius: 0.75rem;
+            transition: width 0.7s ease-in-out; /* Slower transition */
+            background-image: linear-gradient(to right, #00ccff, #00aaff, #007bff); /* More gradient stops */
+            box-shadow: 0 0 10px rgba(0, 204, 255, 0.7);
+        }
+
+        /* Bar chart in measurement problems */
+        .bar-chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            width: 100%;
+            max-width: 350px; /* Increased max-width for better spacing */
+            height: 150px; /* Taller chart */
+            background-color: #2d3748;
+            border-radius: 0.75rem;
+            padding: 15px; /* Increased padding */
+            margin: 1rem auto;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+            border: 2px solid #4a5568;
+        }
+
+        .bar-chart-bar {
+            flex-grow: 1; /* Allow bars to grow and fill space */
+            margin: 0 5px; /* Space between bars */
+            background-color: #4299e1;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.4s ease-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 -2px 5px rgba(66, 153, 225, 0.5);
+            min-width: 40px; /* Ensure a minimum width for bars */
+        }
+        .bar-chart-bar span {
+            color: #e0e0e0;
+            font-size: 0.8rem; /* Slightly larger font for labels */
+            margin-top: 5px;
+            font-weight: bold;
+            text-align: center; /* Center text */
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden; /* Hide overflow if text is too long */
+            text-overflow: ellipsis; /* Add ellipsis if text is too long */
+        }
+        .bar-chart-bar .value-label {
+            position: absolute;
+            top: -1.2rem; /* Adjust position to be clearly above the bar */
+            font-size: 0.9rem; /* Larger font for value labels */
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        /* Line chart */
+        .line-chart-svg {
+            max-width: 350px; /* Increased max-width */
+            height: 150px; /* Taller chart */
+            border: 2px solid #4a5568;
+            border-radius: 0.75rem;
+            background-color: #2d3748;
+            margin: 1rem auto;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+        .line-chart-svg text {
+            font-size: 8px; /* Larger font for labels */
+            fill: #e0e0e0; /* Ensure labels are visible */
+        }
+        .line-chart-svg .grid-line {
+            stroke: #4a5568;
+            stroke-width: 0.5;
+        }
+        .line-chart-svg .data-line {
+            stroke: #00ccff;
+            stroke-width: 2;
+            fill: none;
+        }
+        .line-chart-svg .data-point {
+            fill: #00ccff;
+            stroke: #fff;
+            stroke-width: 1;
+            r: 3;
+        }
+
+
+        /* Problem display text */
+        #problemDisplay {
+            max-width: 98%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+            font-size: 1.3rem; /* Larger font */
+            padding: 0 0.2rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #90cdf4; /* Lighter blue for problem text */
+            text-shadow: 0 0 5px rgba(144, 205, 244, 0.5);
+        }
+
+        /* General text adjustments */
+        p.text-lg { /* Welcome message */
+            font-size: 1rem; /* Larger */
+            margin-bottom: 0.75rem;
+            color: #a0aec0;
+        }
+        h1 { /* Title */
+            font-size: 2.5rem; /* Much larger title */
+            margin-bottom: 0.75rem;
+            text-shadow: 0 0 15px rgba(252, 211, 77, 0.7);
+        }
+        p.mt-2.text-sm { /* Score display text */
+            font-size: 0.9rem; /* Larger */
+            margin-top: 0.5rem;
+            color: #cbd5e0;
+        }
+
+        /* Droid Repair Slots */
+        #droidRepairSlots {
+            display: grid; /* Use grid for precise layout */
+            grid-template-columns: repeat(5, 1fr); /* 5 columns per row */
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 204, 255, 0.1);
+            width: fit-content; /* Shrink to fit content */
+            max-width: 100%; /* Ensure it doesn't overflow */
+        }
+
+        .droid-slot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #4a5568; /* Empty slot color */
+            border: 1px solid #6b7280;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .droid-slot.repaired {
+            background-color: #48bb78; /* Repaired slot color */
+            transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(72, 187, 120, 0.7);
+        }
+
+        /* --- Mobile Specific Adjustments (max-width: 768px) --- */
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 0.75rem;
+                border-radius: 1rem;
+                width: calc(100% - 1.5rem); /* Adjusted for mobile padding */
+                height: calc(100% - 1.5rem); /* Adjusted for mobile padding */
+                /* Revert to flex column for mobile to stack elements */
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .game-header-section,
+            .game-left-panel,
+            .game-main-content,
+            .game-footer-section {
+                grid-column: auto; /* Remove grid column spans */
+                grid-row: auto; /* Remove grid row spans */
+                width: 100%; /* Take full width */
+                padding: 0.75rem; /* Adjusted padding */
+                border-radius: 0.75rem;
+            }
+
+            .game-header-section {
+                order: 1; /* Order elements for mobile stacking */
+                padding-bottom: 0.25rem;
+            }
+            .game-main-content {
+                order: 2;
+                flex-grow: 1; /* Allow main content to take available space */
+                justify-content: flex-start; /* Align content to top in main section */
+                min-height: 0; /* Allow shrinking */
+                /* Ensure content within main-content doesn't overflow */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                overflow-y: auto; /* Allow scrolling within main content if needed */
+            }
+            .game-footer-section {
+                order: 3;
+                padding-top: 0.25rem;
+                flex-direction: column; /* Stack input and buttons on mobile */
+                gap: 0.5rem;
+            }
+            .game-left-panel {
+                order: 4; /* Move score/progress below main content */
+                padding: 0.75rem 0.5rem;
+            }
+
+            .r2d2-droid {
+                width: 90px; /* Smaller droid on mobile */
+                height: 90px;
+                margin-bottom: 1rem;
+            }
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                border-radius: 0.5rem;
+            }
+            .input-field {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+                max-width: 200px; /* Adjusted max-width */
+            }
+            .bar-chart-container, .line-chart-svg {
+                max-width: 200px;
+                height: 100px; /* Adjusted height for mobile */
+                padding: 5px;
+                margin: 0.5rem auto;
+            }
+            .bar-chart-bar {
+                min-width: 25px; /* Adjusted width for mobile */
+                margin: 0 2px; /* Adjusted margin for mobile */
+            }
+            .bar-chart-bar span {
+                font-size: 0.6rem; /* Adjusted font size for mobile */
+            }
+            .bar-chart-bar .value-label {
+                font-size: 0.7rem; /* Adjusted font size for mobile */
+                top: -0.8rem;
+            }
+            .line-chart-svg text {
+                font-size: 6px; /* Adjusted font size for mobile */
+            }
+            #problemDisplay {
+                font-size: 1rem;
+                line-height: 1.2;
+                margin-bottom: 0.75rem;
+            }
+            .feedback-message {
+                font-size: 0.8rem;
+                min-height: 1.5rem;
+                margin-top: 0.75rem;
+            }
+            .progress-bar-container {
+                height: 8px;
+                margin-top: 0.75rem;
+            }
+            p.text-lg {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+            }
+            p.mt-2.text-sm {
+                font-size: 0.7rem;
+                margin-top: 0.25rem;
+            }
+            #droidRepairSlots {
+                gap: 0.3rem;
+                padding: 0.3rem;
+            }
+            .droid-slot {
+                width: 15px;
+                height: 15px;
+            }
+            #visualAid {
+                max-height: 120px; /* Constrain visual aid height on mobile */
+                overflow: hidden; /* Hide overflow if visual is too large */
+            }
+        </style>
+</head>
+<body>
+    <div id="gameContainer" class="game-container">
+        <div class="starfield" id="starfield"></div>
+
+        <div class="game-header-section">
+            <h1 class="font-bold text-yellow-400">Jedi Droid Repair Mission</h1>
+            <p class="text-lg max-w-prose mx-auto">Help repair the droids by solving math challenges!</p>
+        </div>
+
+        <div class="game-left-panel">
+            <h2>Game Progress</h2>
+            <p class="mt-2 text-sm">Overall Score: <span id="scoreDisplay" class="text-blue-300 font-bold">0</span></p>
+            <p class="mt-2 text-sm">Current Round Progress:</p>
+            <div class="progress-bar-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <div id="droidRepairSlots" class="mt-4">
+                <!-- Droid repair slots will be dynamically added here -->
+            </div>
+            <!-- Repositioned Feedback and Hint Button -->
+            <div id="feedback" class="feedback-message w-full text-center mt-4" role="status" aria-live="polite"></div>
+            <button id="hintBtn" class="btn hidden mt-4">Hint</button>
+        </div>
+
+        <div class="game-main-content">
+            <div id="droidDisplay" class="r2d2-droid" aria-label="R2-D2 inspired droid visual aid">
+                <!-- R2-D2 inspired Droid SVG -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="droidTitle droidDesc">
+                    <title id="droidTitle">R2-D2 inspired Droid</title>
+                    <desc id="droidDesc">A stylized R2-D2 like droid, representing a unit to be repaired.</desc>
+                    <defs>
+                        <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#a0aec0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#718096;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="blueAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4299e1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#3182ce;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="redAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e53e3e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#c53030;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Main Body -->
+                    <rect x="25" y="40" width="50" height="45" rx="10" fill="url(#bodyGradient)" />
+                    <!-- Dome Head -->
+                    <path d="M 50 15 A 25 25 0 0 1 75 40 L 25 40 A 25 25 0 0 1 50 15 Z" fill="url(#bodyGradient)" />
+                    <!-- Blue Accents on Head -->
+                    <circle cx="50" cy="28" r="8" fill="url(#blueAccent)" />
+                    <circle cx="50" cy="28" r="3" fill="#e0e0e0" /> <!-- Eye -->
+                    <!-- Blue Accents on Body -->
+                    <rect x="30" y="45" width="40" height="10" rx="3" fill="url(#blueAccent)" />
+                    <rect x="30" y="60" width="40" height="5" rx="2" fill="url(#blueAccent)" />
+                    <!-- Red Accent on Body -->
+                    <rect x="35" y="50" width="30" height="5" rx="2" fill="url(#redAccent)" />
+                    <!-- Legs -->
+                    <rect x="20" y="75" width="10" height="15" rx="3" fill="url(#bodyGradient)" />
+                    <rect x="70" y="75" width="10" height="15" rx="3" fill="url(#bodyGradient)" />
+                </svg>
+            </div>
+
+            <div id="problemDisplay" class="font-semibold text-blue-300"></div>
+            <div id="visualAid" class="mt-2"></div> <!-- Container for shapes/charts -->
+        </div>
+
+        <div class="game-footer-section">
+            <input type="text" id="answerInput" class="input-field" placeholder="Type your answer here" aria-label="Enter your answer to the math problem">
+            <button id="submitBtn" class="btn">Submit</button>
+        </div>
+
+        <!-- Custom Message Box -->
+        <div id="messageBox" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="messageText">
+            <div class="bg-gray-800 p-8 rounded-xl shadow-lg text-center border-4 border-yellow-400">
+                <p id="messageText" class="text-xl font-bold mb-6 text-white"></p>
+                <button id="messageBoxCloseBtn" class="btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CQ4D3VQ3L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1CQ4D3VQ3L');
+    </script>
+
+    <script defer>
+        // Game state variables
+        let score = 0; // Overall score
+        const problemsPerRound = 10; // Number of problems per round
+        let problemsSolvedInCurrentRound = 0; // Problems solved in the current round
+        let currentProblem = {};
+        const problemTypes = ['geometry', 'algebra', 'measurement', 'fractions', 'data_analysis', 'decimals']; // Expanded focus areas
+        let attempts = 0; // Track attempts for hints/corrections
+
+        // Game session stats for local storage
+        let currentSessionStats = {
+            score: 0,
+            problemsAttempted: 0,
+            problemsCorrect: 0,
+            domainStats: {
+                geometry: { correct: 0, attempted: 0 },
+                algebra: { correct: 0, attempted: 0 },
+                measurement: { correct: 0, attempted: 0 },
+                fractions: { correct: 0, attempted: 0 },
+                data_analysis: { correct: 0, attempted: 0 },
+                decimals: { correct: 0, attempted: 0 }
+            }
+        };
+
+        // DOM elements
+        const problemDisplay = document.getElementById('problemDisplay');
+        const visualAid = document.getElementById('visualAid'); // New element for visual aids
+        const answerInput = document.getElementById('answerInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const hintBtn = document.getElementById('hintBtn');
+        const feedback = document.getElementById('feedback');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const progressBar = document.getElementById('progressBar');
+        const droidDisplay = document.getElementById('droidDisplay');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+        const droidRepairSlotsContainer = document.getElementById('droidRepairSlots');
+
+        // Function to set the --vh custom property for consistent viewport height on mobile
+        function setVhProperty() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        // Set initially and on resize
+        window.addEventListener('resize', setVhProperty);
+        setVhProperty(); // Call once on load
+
+
+        // Function to show custom message box
+        function showMessage(message) {
+            messageText.textContent = message;
+            messageBox.classList.remove('hidden');
+        }
+
+        // Function to hide custom message box
+        function hideMessageBox() {
+            messageBox.classList.add('hidden');
+        }
+
+        // Event listener for message box close button
+        messageBoxCloseBtn.addEventListener('click', hideMessageBox);
+
+        // --- Local Storage Functions for Score History ---
+        const LOCAL_STORAGE_KEY = 'jediDroidRepairGameSessions';
+
+        function saveGameSession() {
+            let sessions = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+            const now = new Date();
+            const sessionRecord = {
+                timestamp: now.toISOString(),
+                score: currentSessionStats.score,
+                problemsAttempted: currentSessionStats.problemsAttempted,
+                problemsCorrect: currentSessionStats.problemsCorrect,
+                domainStats: JSON.parse(JSON.stringify(currentSessionStats.domainStats)) // Deep copy
+            };
+            sessions.push(sessionRecord);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sessions));
+        }
+
+        function loadGameData() {
+            return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+        }
+
+        // Function to generate stars for the background
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starfield.appendChild(star);
+            }
+        }
+
+        // Helper function to generate random integers
+        const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // --- Droid Repair Slots Logic ---
+        function initializeDroidSlots() {
+            droidRepairSlotsContainer.innerHTML = ''; // Clear existing slots
+            for (let i = 0; i < problemsPerRound; i++) {
+                const slot = document.createElement('div');
+                slot.classList.add('droid-slot');
+                slot.dataset.index = i; // Store index for easy reference
+                droidRepairSlotsContainer.appendChild(slot);
+            }
+        }
+
+        function updateDroidSlot(index, isRepaired) {
+            const slot = droidRepairSlotsContainer.querySelector(`.droid-slot[data-index="${index}"]`);
+            if (slot) {
+                if (isRepaired) {
+                    slot.classList.add('repaired');
+                } else {
+                    slot.classList.remove('repaired');
+                }
+            }
+        }
+
+        function resetDroidSlots() {
+            const slots = droidRepairSlotsContainer.querySelectorAll('.droid-slot');
+            slots.forEach(slot => slot.classList.remove('repaired'));
+        }
+
+        // --- Problem Generation Functions for 4th/5th Graders ---
+
+        const generateGeometryProblem = () => {
+            const problemTemplates = [
+                // 2D Shapes: Sides/Vertices/Identification (simplified ranges/concepts)
+                {
+                    type: 'identify_2d_props',
+                    text: (shape) => `A component is shaped like a ${shape.name}. How many sides does it have?`,
+                    answer: (shape) => shape.sides,
+                    hint: (shape) => `Count the straight lines that form the boundary of a ${shape.name}.`,
+                    solutionExplanation: (shape) => `A ${shape.name} has ${shape.sides} straight sides.`,
+                    inputType: 'number',
+                    shapes: [
+                        { name: 'square', sides: 4, vertices: 4 }, { name: 'triangle', sides: 3, vertices: 3 },
+                        { name: 'rectangle', sides: 4, vertices: 4 }, { name: 'pentagon', sides: 5, vertices: 5 }
+                    ]
+                },
+                {
+                    type: 'identify_2d_vertices',
+                    text: (shape) => `How many vertices (corners) does a ${shape.name}-shaped part have?`,
+                    answer: (shape) => shape.vertices,
+                    hint: (shape) => `Count the points where the sides of a ${shape.name} meet.`,
+                    solutionExplanation: (shape) => `A ${shape.name} has ${shape.vertices} vertices, which are its corners.`,
+                    inputType: 'number',
+                    shapes: [
+                        { name: 'square', sides: 4, vertices: 4 }, { name: 'triangle', sides: 3, vertices: 3 },
+                        { name: 'rectangle', sides: 4, vertices: 4 }, { name: 'pentagon', sides: 5, vertices: 5 }
+                    ]
+                },
+                {
+                    type: 'identify_2d_from_visual',
+                    text: () => `Identify the shape of this component:`,
+                    answer: (shape) => shape.name,
+                    hint: () => `What is the name of this geometric shape?`,
+                    solutionExplanation: (shape) => `The shape shown is a ${shape.name}.`,
+                    inputType: 'text',
+                    shapes: [
+                        { name: 'square', svg: '<rect x="30" y="30" width="40" height="40" fill="#4299e1" rx="5"/>' },
+                        { name: 'triangle', svg: '<polygon points="50,20 80,70 20,70" fill="#48bb78" rx="5"/>' },
+                        { name: 'circle', svg: '<circle cx="50" cy="50" r="30" fill="#f6e05e"/>' },
+                        { name: 'rectangle', svg: '<rect x="20" y="35" width="60" height="30" fill="#ed8936" rx="5"/>' }
+                    ]
+                },
+                // Perimeter (simpler numbers)
+                {
+                    type: 'perimeter_rectangle',
+                    text: (l, w) => `A rectangular power panel is ${l} meters long and ${w} meters wide. What is its perimeter?`,
+                    answer: (l, w) => 2 * (l + w),
+                    hint: () => `The perimeter is the total distance around the outside. Add all four sides.`,
+                    solutionExplanation: (l, w) => `Perimeter is 2 * (length + width). So, 2 * (${l} + ${w}) = 2 * ${l + w} = ${2 * (l + w)}.`,
+                    inputType: 'number',
+                    minL: 3, maxL: 10, minW: 2, maxW: 7
+                },
+                {
+                    type: 'perimeter_square',
+                    text: (s) => `A square data chip is ${s} cm on each side. What is its perimeter?`,
+                    answer: (s) => 4 * s,
+                    hint: () => `A square has four equal sides. Multiply one side by four.`,
+                    solutionExplanation: (s) => `Perimeter of a square is 4 * side. So, 4 * ${s} = ${4 * s}.`,
+                    inputType: 'number',
+                    minS: 2, maxS: 8
+                },
+                // Area (simpler numbers)
+                {
+                    type: 'area_rectangle',
+                    text: (l, w) => `A rectangular landing pad is ${l} meters long and ${w} meters wide. What is its area in square meters?`,
+                    answer: (l, w) => l * w,
+                    hint: () => `Area is length multiplied by width.`,
+                    solutionExplanation: (l, w) => `Area is length * width. So, ${l} * ${w} = ${l * w}.`,
+                    inputType: 'number',
+                    minL: 3, maxL: 10, minW: 2, maxW: 7
+                },
+                // Angles (basic identification only)
+                {
+                    type: 'angle_type',
+                    text: (angleType) => {
+                        if (angleType === 'acute') return `An angle that is smaller than a right angle is called what type of angle?`;
+                        if (angleType === 'right') return `An angle that forms a perfect corner, exactly 90 degrees, is called what type of angle?`;
+                        if (angleType === 'obtuse') return `An angle that is larger than a right angle but less than a straight line is called what type of angle?`;
+                    },
+                    answer: (angleType) => angleType,
+                    hint: () => `Think about angles that are smaller, exact, or larger than a corner.`,
+                    solutionExplanation: (angleType) => {
+                        if (angleType === 'acute') return `An angle smaller than 90 degrees is an acute angle.`;
+                        if (angleType === 'right') return `An angle exactly 90 degrees is a right angle.`;
+                        if (angleType === 'obtuse') return `An angle larger than 90 degrees but less than 180 degrees is an obtuse angle.`;
+                    },
+                    inputType: 'text',
+                    angles: ['acute', 'right', 'obtuse']
+                }
+            ];
+
+            const template = problemTemplates[getRandomInt(0, problemTemplates.length - 1)];
+            let problemText, answer, hint, solutionExplanation, visualHtml = '', inputType = template.inputType;
+
+            if (template.type.includes('2d') && template.type.includes('visual')) {
+                const selectedShape = template.shapes[getRandomInt(0, template.shapes.length - 1)];
+                problemText = template.text();
+                answer = selectedShape.name;
+                hint = template.hint();
+                solutionExplanation = template.solutionExplanation(selectedShape);
+                visualHtml = `<svg viewBox="0 0 100 100" width="100px" height="100px" class="mx-auto my-4" role="img" aria-label="Geometric shape for identification">${selectedShape.svg}</svg>`;
+            } else if (template.type.includes('2d') || template.type.includes('3d')) { // For text-based 2D/3D props/desc
+                const selectedShape = template.shapes[getRandomInt(0, template.shapes.length - 1)];
+                problemText = template.text(selectedShape);
+                answer = template.answer(selectedShape);
+                hint = template.hint(selectedShape);
+                solutionExplanation = template.solutionExplanation(selectedShape);
+            } else if (template.type.includes('perimeter') || template.type.includes('area')) {
+                const l = getRandomInt(template.minL, template.maxL);
+                const w = template.minW ? getRandomInt(template.minW, template.maxW) : null;
+                const s = template.minS ? getRandomInt(template.minS, template.maxS) : null;
+
+                if (template.type === 'perimeter_rectangle' || template.type === 'area_rectangle') {
+                    problemText = template.text(l, w);
+                    answer = template.answer(l, w);
+                    solutionExplanation = template.solutionExplanation(l, w);
+                } else if (template.type === 'perimeter_square') {
+                    problemText = template.text(s);
+                    answer = template.answer(s);
+                    solutionExplanation = template.solutionExplanation(s);
+                }
+                hint = template.hint();
+            } else if (template.type === 'angle_type') {
+                const selectedAngle = template.angles[getRandomInt(0, template.angles.length - 1)];
+                problemText = template.text(selectedAngle);
+                answer = selectedAngle;
+                hint = template.hint();
+                solutionExplanation = template.solutionExplanation(selectedAngle);
+            }
+
+            return { problemText, answer: String(answer).toLowerCase(), hint, solutionExplanation, inputType, visualHtml, domain: 'geometry' };
+        };
+
+        const generateAlgebraProblem = () => {
+            const problemTemplates = [
+                // Basic Operations (simpler numbers)
+                {
+                    type: 'simple_equation_addition',
+                    text: (num1, num2, result) => [`Solve for X: ${num1} + X = ${result}.`, `${num1} + ? = ${result}. What is the missing number?`],
+                    answer: (num1, num2) => num2,
+                    hint: (num1, result) => `To find X, subtract ${num1} from ${result}.`,
+                    solutionExplanation: (num1, num2, result) => `The equation is ${num1} + X = ${result}. To find X, subtract ${num1} from ${result}. So, X = ${result} - ${num1} = ${num2}.`,
+                    min1: 5, max1: 20, min2: 1, max2: 15
+                },
+                {
+                    type: 'simple_equation_subtraction',
+                    text: (num1, num2, result) => [`Solve for X: ${num1} - X = ${result}.`, `${num1} - ? = ${result}. What is the missing number?`],
+                    answer: (num1, num2) => num2,
+                    hint: (num1, result) => `To find X, subtract ${result} from ${num1}.`,
+                    solutionExplanation: (num1, num2, result) => `The equation is ${num1} - X = ${result}. To find X, subtract ${result} from ${num1}. So, X = ${num1} - ${result} = ${num2}.`,
+                    min1: 15, max1: 40, min2: 1, max2: 15
+                },
+                {
+                    type: 'simple_equation_multiplication',
+                    text: (num1, num2, result) => [`Solve for X: ${num1} * X = ${result}.`, `${num1} × ? = ${result}. What is the missing number?`],
+                    answer: (num1, num2) => num2,
+                    hint: (num1, result) => `To find X, divide ${result} by ${num1}.`,
+                    solutionExplanation: (num1, num2, result) => `The equation is ${num1} * X = ${result}. To find X, divide ${result} by ${num1}. So, X = ${result} / ${num1} = ${num2}.`,
+                    min1: 2, max1: 8, min2: 2, max2: 8
+                },
+                {
+                    type: 'simple_equation_division',
+                    text: (num1, num2, result) => [`Solve for X: X / ${num2} = ${result}.`, `? ÷ ${num2} = ${result}. What is the missing number?`],
+                    answer: (num1, num2) => num1,
+                    hint: (num2, result) => `To find X, multiply ${result} by ${num2}.`,
+                    solutionExplanation: (num1, num2, result) => `The equation is X / ${num2} = ${result}. To find X, multiply ${result} by ${num2}. So, X = ${result} * ${num2} = ${num1}.`,
+                    min1: 2, max1: 8, min2: 2, max2: 8 // num1 is the answer, result is num1/num2
+                },
+                // Number Patterns (simpler differences, always increasing or decreasing)
+                {
+                    type: 'number_pattern_add_sub',
+                    text: (pattern) => `Complete the sequence: ${pattern.join(', ')}, ___. What is the next number?`,
+                    answer: (last, diff, isAdd) => isAdd ? last + diff : last - diff,
+                    hint: `Find the rule: are numbers increasing or decreasing, and by how much?`,
+                    solutionExplanation: (last, diff, isAdd) => {
+                        const operation = isAdd ? 'adding' : 'subtracting';
+                        return `The pattern is ${operation} ${diff} each time. The last number is ${last}, so the next is ${isAdd ? last + diff : last - diff}.`;
+                    },
+                    minStart: 1, maxStart: 30, minDiff: 2, maxDiff: 5, patternLength: 3
+                },
+                // Word Problems (single step)
+                {
+                    type: 'word_problem_single_step_add',
+                    text: (a, b) => `A Jedi has ${a} data chips. She finds ${b} more. How many data chips does she have now?`,
+                    answer: (a, b) => a + b,
+                    hint: 'Add the number of chips she started with and the number she found.',
+                    solutionExplanation: (a, b) => `To find the total, add the chips: ${a} + ${b} = ${a + b}.`,
+                    minA: 10, maxA: 30, minB: 5, maxB: 20
+                },
+                {
+                    type: 'word_problem_single_step_sub',
+                    text: (a, b) => `There are ${a} droids, and ${b} droids leave. How many droids are left?`,
+                    answer: (a, b) => a - b,
+                    hint: 'Subtract the droids that left from the total.',
+                    solutionExplanation: (a, b) => `To find how many are left, subtract: ${a} - ${b} = ${a - b}.`,
+                    minA: 20, maxA: 50, minB: 5, maxB: 20
+                },
+                {
+                    type: 'word_problem_single_step_mult',
+                    text: (a, b) => `You have ${a} boxes, and each box has ${b} power cells. How many power cells in total?`,
+                    answer: (a, b) => a * b,
+                    hint: 'Multiply the number of boxes by the number of cells in each.',
+                    solutionExplanation: (a, b) => `To find the total, multiply: ${a} * ${b} = ${a * b}.`,
+                    minA: 3, maxA: 8, minB: 2, maxB: 7
+                },
+                // Two-step Word Problems (New)
+                {
+                    type: 'word_problem_two_step_add_sub',
+                    text: (start, added, removed) => `A space station had ${start} droids. ${added} new droids arrived, but then ${removed} droids left for a mission. How many droids are on the station now?`,
+                    answer: (start, added, removed) => start + added - removed,
+                    hint: () => `First, add the droids that arrived. Then, subtract the droids that left.`,
+                    solutionExplanation: (start, added, removed) => `First, ${start} + ${added} = ${start + added} droids. Then, ${start + added} - ${removed} = ${start + added - removed} droids.`,
+                    minStart: 20, maxStart: 50, minAdded: 5, maxAdded: 15, minRemoved: 5, maxRemoved: 15
+                },
+                {
+                    type: 'word_problem_two_step_mult_add',
+                    text: (groups, perGroup, extra) => `A mechanic repaired ${groups} sets of droids, with ${perGroup} droids in each set. He then repaired ${extra} more droids. How many droids did he repair in total?`,
+                    answer: (groups, perGroup, extra) => (groups * perGroup) + extra,
+                    hint: () => `First, multiply to find the total in sets. Then, add the extra droids.`,
+                    solutionExplanation: (groups, perGroup, extra) => `First, ${groups} * ${perGroup} = ${groups * perGroup} droids in sets. Then, ${groups * perGroup} + ${extra} = ${(groups * perGroup) + extra} total droids.`,
+                    minGroups: 3, maxGroups: 6, minPerGroup: 2, maxPerGroup: 5, minExtra: 1, maxExtra: 10
+                },
+                // Input/Output Tables (very simple rules)
+                {
+                    type: 'input_output_table',
+                    text: (rule, exampleIn, exampleOut, questionIn) => `Rule: ${rule}. If Input is ${exampleIn}, Output is ${exampleOut}. If Input is ${questionIn}, what is the Output?`,
+                    answer: (rule, questionIn) => {
+                        if (rule.includes('add')) return questionIn + parseInt(rule.split(' ')[1]);
+                        if (rule.includes('subtract')) return questionIn - parseInt(rule.split(' ')[1]);
+                        if (rule.includes('multiply by')) return questionIn * parseInt(rule.split(' ')[2]);
+                        return null;
+                    },
+                    hint: `Figure out the rule that changes the input to the output.`,
+                    solutionExplanation: (rule, questionIn, answer) => `The rule is to ${rule}. So, apply the rule to ${questionIn} to get ${answer}.`,
+                    inputType: 'number',
+                    rules: [
+                        { rule: 'add 5', op: (n) => n + 5 }, { rule: 'subtract 2', op: (n) => n - 2 },
+                        { rule: 'multiply by 3', op: (n) => n * 3 }
+                    ]
+                },
+                // Simple Inequalities (comparing two numbers)
+                {
+                    type: 'simple_inequality',
+                    text: (num1, num2) => `Which number is greater: ${num1} or ${num2}?`,
+                    answer: (num1, num2) => Math.max(num1, num2),
+                    hint: `Pick the number with the larger value.`,
+                    solutionExplanation: (num1, num2) => `Comparing ${num1} and ${num2}, the larger number is ${Math.max(num1, num2)}.`,
+                    inputType: 'number',
+                    min: 1, max: 50
+                },
+                // Coordinate Plane (identifying one coordinate only)
+                {
+                    type: 'coordinate_reading',
+                    text: (x, y) => `A droid is located at point (${x}, ${y}) on a grid. What is the X-coordinate?`,
+                    answer: (x, y) => x,
+                    hint: `The first number in the parentheses is the X-coordinate.`,
+                    solutionExplanation: (x, y) => `In a coordinate pair (X, Y), the X-coordinate is the first number. For (${x}, ${y}), the X-coordinate is ${x}.`,
+                    inputType: 'number',
+                    min: 1, max: 8
+                }
+            ];
+
+            const template = problemTemplates[getRandomInt(0, problemTemplates.length - 1)];
+            let problemText, answer, hint, solutionExplanation, visualHtml = '';
+
+            if (template.type.startsWith('simple_equation')) {
+                const num1 = getRandomInt(template.min1, template.max1);
+                const num2 = getRandomInt(template.min2, template.max2);
+                let result;
+                if (template.type === 'simple_equation_addition') result = num1 + num2;
+                else if (template.type === 'simple_equation_subtraction') result = num1 - num2;
+                else if (template.type === 'simple_equation_multiplication') result = num1 * num2;
+                else if (template.type === 'simple_equation_division') result = num1 / num2;
+
+                problemText = template.text(num1, num2, result)[getRandomInt(0, template.text(num1, num2, result).length - 1)];
+                answer = template.answer(num1, num2);
+                hint = typeof template.hint === 'function' ? template.hint(num1, result) : template.hint;
+                solutionExplanation = template.solutionExplanation(num1, num2, result);
+            } else if (template.type === 'number_pattern_add_sub') {
+                let start = getRandomInt(template.minStart, template.maxStart);
+                let diff = getRandomInt(template.minDiff, template.maxDiff);
+                let isAdd = Math.random() < 0.5;
+                let pattern = [start];
+                for (let i = 1; i < template.patternLength; i++) {
+                    let nextNum = isAdd ? pattern[i-1] + diff : pattern[i-1] - diff;
+                    if (!isAdd && nextNum < 1) { // Ensure positive numbers for subtraction patterns
+                        isAdd = true;
+                        nextNum = pattern[i-1] + diff;
+                    }
+                    pattern.push(nextNum);
+                }
+                problemText = template.text(pattern);
+                answer = template.answer(pattern[pattern.length-1], diff, isAdd);
+                hint = template.hint;
+                solutionExplanation = template.solutionExplanation(pattern[pattern.length-1], diff, isAdd);
+            } else if (template.type.startsWith('word_problem_single_step')) {
+                const a = getRandomInt(template.minA, template.maxA);
+                const b = getRandomInt(template.minB, template.maxB);
+                problemText = template.text(a, b);
+                answer = template.answer(a, b);
+                hint = template.hint;
+                solutionExplanation = template.solutionExplanation(a, b);
+            } else if (template.type.startsWith('word_problem_two_step')) {
+                const start = getRandomInt(template.minStart, template.maxStart);
+                const added = getRandomInt(template.minAdded, template.maxAdded);
+                const removed = getRandomInt(template.minRemoved, template.maxRemoved);
+                const groups = getRandomInt(template.minGroups, template.maxGroups);
+                const perGroup = getRandomInt(template.minPerGroup, template.maxPerGroup);
+                const extra = getRandomInt(template.minExtra, template.maxExtra);
+
+                if (template.type === 'word_problem_two_step_add_sub') {
+                    problemText = template.text(start, added, removed);
+                    answer = template.answer(start, added, removed);
+                    solutionExplanation = template.solutionExplanation(start, added, removed);
+                } else if (template.type === 'word_problem_two_step_mult_add') {
+                    problemText = template.text(groups, perGroup, extra);
+                    answer = template.answer(groups, perGroup, extra);
+                    solutionExplanation = template.solutionExplanation(groups, perGroup, extra);
+                }
+                hint = template.hint();
+            }
+            else if (template.type === 'input_output_table') {
+                const selectedRule = template.rules[getRandomInt(0, template.rules.length - 1)];
+                const exampleIn = getRandomInt(5, 15);
+                const exampleOut = selectedRule.op(exampleIn);
+                const questionIn = getRandomInt(5, 15);
+                problemText = template.text(selectedRule.rule, exampleIn, exampleOut, questionIn);
+                answer = template.answer(selectedRule.rule, questionIn);
+                hint = template.hint;
+                solutionExplanation = template.solutionExplanation(selectedRule.rule, questionIn, answer);
+            } else if (template.type === 'simple_inequality') {
+                const num1 = getRandomInt(template.min, template.max);
+                let num2 = getRandomInt(template.min, template.max);
+                while (num1 === num2) num2 = getRandomInt(template.min, template.max);
+                problemText = template.text(num1, num2);
+                answer = template.answer(num1, num2);
+                hint = template.hint;
+                solutionExplanation = template.solutionExplanation(num1, num2);
+            } else if (template.type === 'coordinate_reading') {
+                const x = getRandomInt(template.min, template.max);
+                const y = getRandomInt(template.min, template.max);
+                problemText = template.text(x, y);
+                answer = template.answer(x, y);
+                hint = template.hint;
+                solutionExplanation = template.solutionExplanation(x, y);
+            }
+
+            return { problemText, answer: String(answer).toLowerCase(), hint, solutionExplanation, inputType: 'number', visualHtml, domain: 'algebra' };
+        };
+
+        const generateMeasurementProblem = () => {
+            const problemTemplates = [
+                // Time (simpler elapsed time, no crossing midnight)
+                {
+                    type: 'time_elapsed_simple',
+                    text: (sh, sm, eh, em) => `A task started at ${formatTime(sh, sm)} and finished at ${formatTime(eh, em)}. How many minutes did it last?`,
+                    answer: (sh, sm, eh, em) => {
+                        const start = new Date(2000, 0, 1, sh, sm);
+                        const end = new Date(2000, 0, 1, eh, em);
+                        return (end - start) / (1000 * 60);
+                    },
+                    hint: () => `Count the minutes from the start time to the end time.`,
+                    solutionExplanation: (sh, sm, eh, em, duration) => `The task lasted from ${formatTime(sh, sm)} to ${formatTime(eh, em)}. This is ${duration} minutes.`,
+                    inputType: 'number',
+                    generate: () => {
+                        const startHour = getRandomInt(8, 10); // 8 AM to 10 AM
+                        const startMinute = getRandomInt(0, 3) * 15; // 0, 15, 30, 45
+                        const durationMinutes = getRandomInt(1, 4) * 15; // 15, 30, 45, 60 minutes
+                        const startTime = new Date(2000, 0, 1, startHour, startMinute);
+                        const endTime = new Date(startTime.getTime() + durationMinutes * 60 * 1000);
+                        return { sh: startHour, sm: startMinute, eh: endTime.getHours(), em: endTime.getMinutes(), duration: durationMinutes };
+                    }
+                },
+                {
+                    type: 'time_end_time_simple',
+                    text: (sh, sm, dm) => `A meeting starts at ${formatTime(sh, sm)} and lasts for ${dm} minutes. What time will it end? (e.g., 10:30)`,
+                    answer: (sh, sm, dm) => {
+                        const startTime = new Date(2000, 0, 1, sh, sm);
+                        const endTime = new Date(startTime.getTime() + dm * 60 * 1000);
+                        return `${endTime.getHours() % 12 === 0 ? 12 : endTime.getHours() % 12}:${endTime.getMinutes() < 10 ? '0' + endTime.getMinutes() : endTime.getMinutes()}`;
+                    },
+                    hint: () => `Add the minutes to the start time. There are 60 minutes in an hour.`,
+                    solutionExplanation: (sh, sm, dm, answer) => `Starting at ${formatTime(sh, sm)} and adding ${dm} minutes, the end time is ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const startHour = getRandomInt(9, 11);
+                        const startMinute = getRandomInt(0, 3) * 15;
+                        const durationMinutes = getRandomInt(1, 4) * 15;
+                        return { sh: startHour, sm: startMinute, dm: durationMinutes };
+                    }
+                },
+                // Length/Weight/Capacity Conversions (simple, direct)
+                {
+                    type: 'conversion_length_m_cm',
+                    text: (m) => `${m} meters is how many centimeters?`,
+                    answer: (m) => m * 100,
+                    hint: () => `There are 100 centimeters in 1 meter.`,
+                    solutionExplanation: (m, answer) => `Since 1 meter = 100 centimeters, ${m} meters = ${m} * 100 = ${answer} centimeters.`,
+                    inputType: 'number',
+                    minM: 2, maxM: 10
+                },
+                {
+                    type: 'conversion_weight_kg_g',
+                    text: (kg) => `${kg} kilograms is how many grams?`,
+                    answer: (kg) => kg * 1000,
+                    hint: () => `There are 1000 grams in 1 kilogram.`,
+                    solutionExplanation: (kg, answer) => `Since 1 kilogram = 1000 grams, ${kg} kilograms = ${kg} * 1000 = ${answer} grams.`,
+                    inputType: 'number',
+                    minKg: 1, maxKg: 5
+                },
+                {
+                    type: 'conversion_capacity_l_ml',
+                    text: (l) => `${l} liters is how many milliliters?`,
+                    answer: (l) => l * 1000,
+                    hint: () => `There are 1000 milliliters in 1 liter.`,
+                    solutionExplanation: (l, answer) => `Since 1 liter = 1000 milliliters, ${l} liters = ${l} * 1000 = ${answer} milliliters.`,
+                    inputType: 'number',
+                    minL: 1, maxL: 4
+                },
+                // Volume of Rectangular Prism (simpler numbers)
+                {
+                    type: 'volume_rectangular_prism',
+                    text: (l, w, h) => `A storage crate is ${l}m long, ${w}m wide, and ${h}m high. What is its volume in cubic meters?`,
+                    answer: (l, w, h) => l * w * h,
+                    hint: () => `Volume is length × width × height.`,
+                    solutionExplanation: (l, w, h, answer) => `Volume = length * width * height. So, ${l} * ${w} * ${h} = ${answer} cubic meters.`,
+                    inputType: 'number',
+                    minL: 2, maxL: 4, minW: 2, maxW: 3, minH: 1, maxH: 3
+                },
+                // Reading Analog Clock (to the nearest 5 minutes)
+                {
+                    type: 'read_analog_clock',
+                    text: (hour, minute) => `What time is shown on the clock? (e.g., 3:45)`,
+                    answer: (hour, minute) => `${hour}:${minute < 10 ? '0' + minute : minute}`,
+                    hint: () => `The short hand is the hour, the long hand is the minute (count by 5s).`,
+                    solutionExplanation: (hour, minute, answer) => `The hour hand points to ${hour} and the minute hand points to ${minute} minutes past the hour, so the time is ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const hour = getRandomInt(1, 12);
+                        const minute = getRandomInt(0, 11) * 5; // Nearest 5 minutes
+                        return { hour, minute };
+                    },
+                    visual: (hour, minute) => {
+                        const svgSize = 150;
+                        const centerX = svgSize / 2;
+                        const centerY = svgSize / 2;
+                        const radius = svgSize / 2 - 10;
+
+                        // Calculate angles for hands
+                        const hourAngle = (hour % 12 + minute / 60) * 30 - 90; // -90 to start from 12 o'clock
+                        const minuteAngle = (minute / 60) * 360 - 90;
+
+                        const hourX = centerX + radius * 0.5 * Math.cos(hourAngle * Math.PI / 180);
+                        const hourY = centerY + radius * 0.5 * Math.sin(hourAngle * Math.PI / 180);
+                        const minuteX = centerX + radius * 0.8 * Math.cos(minuteAngle * Math.PI / 180);
+                        const minuteY = centerY + radius * 0.8 * Math.sin(minuteAngle * Math.PI / 180);
+
+                        return `
+                            <svg viewBox="0 0 ${svgSize} ${svgSize}" width="${svgSize}px" height="${svgSize}px" class="mx-auto my-4 bg-gray-800 rounded-full border border-blue-400" role="img" aria-label="Analog clock showing ${hour}:${minute < 10 ? '0' + minute : minute}">
+                                <circle cx="${centerX}" cy="${centerY}" r="${radius}" fill="#2d3748" stroke="#00ccff" stroke-width="2"/>
+                                <!-- Hour marks -->
+                                ${[...Array(12).keys()].map(i => {
+                                    const angle = i * 30 - 90;
+                                    const x1 = centerX + radius * Math.cos(angle * Math.PI / 180);
+                                    const y1 = centerY + radius * Math.sin(angle * Math.PI / 180);
+                                    const x2 = centerX + (radius - 5) * Math.cos(angle * Math.PI / 180);
+                                    const y2 = centerY + (radius - 5) * Math.sin(angle * Math.PI / 180);
+                                    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#e0e0e0" stroke-width="1"/>`;
+                                }).join('')}
+                                <!-- Hour hand -->
+                                <line x1="${centerX}" y1="${centerY}" x2="${hourX}" y2="${hourY}" stroke="#e53e3e" stroke-width="3" stroke-linecap="round"/>
+                                <!-- Minute hand -->
+                                <line x1="${centerX}" y1="${centerY}" x2="${minuteX}" y2="${minuteY}" stroke="#4299e1" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="${centerX}" cy="${centerY}" r="3" fill="#e0e0e0"/>
+                            </svg>
+                        `;
+                    }
+                }
+            ];
+
+            const formatTime = (h, m) => {
+                const period = h >= 12 ? 'PM' : 'AM';
+                const hour12 = h % 12 === 0 ? 12 : h % 12;
+                const minuteStr = m < 10 ? '0' + m : m;
+                return `${hour12}:${minuteStr} ${period}`;
+            };
+
+            const template = problemTemplates[getRandomInt(0, problemTemplates.length - 1)];
+            let problemText, answer, hint, solutionExplanation, visualHtml = '', inputType = template.inputType;
+
+            if (template.type.startsWith('time_')) {
+                const data = template.generate();
+                problemText = template.text(data.sh1 || data.sh, data.sm1 || data.sm, data.sh2 || data.eh || data.dm, data.sm2 || data.em);
+                answer = template.answer(data.sh1 || data.sh, data.sm1 || data.sm, data.sh2 || data.eh || data.dm, data.sm2 || data.em);
+                if (template.type === 'time_end_time' || template.type === 'time_elapsed_across_midnight') {
+                    answer = String(answer);
+                }
+                hint = template.hint();
+                solutionExplanation = template.solutionExplanation(data.sh1 || data.sh, data.sm1 || data.sm, data.sh2 || data.eh || data.dm, data.sm2 || data.em, data.duration || answer);
+            } else if (template.type.startsWith('conversion_')) {
+                let value;
+                // Explicitly get the value based on the conversion type
+                if (template.type === 'conversion_length_m_cm') {
+                    value = getRandomInt(template.minM, template.maxM);
+                } else if (template.type === 'conversion_weight_kg_g') {
+                    value = getRandomInt(template.minKg, template.maxKg);
+                } else if (template.type === 'conversion_capacity_l_ml') {
+                    value = getRandomInt(template.minL, template.maxL);
+                }
+                // Fallback in case value is still undefined (shouldn't happen with explicit checks)
+                if (value === undefined) {
+                    console.error("Error: Value for conversion problem is undefined. Falling back to 1.", template);
+                    value = 1;
+                }
+                
+                problemText = template.text(value);
+                hint = template.hint();
+                answer = template.answer(value);
+                solutionExplanation = template.solutionExplanation(value, answer);
+            } else if (template.type === 'volume_rectangular_prism') {
+                const l = getRandomInt(template.minL, template.maxL);
+                const w = getRandomInt(template.minW, template.maxW);
+                const h = getRandomInt(template.minH, template.maxH);
+                problemText = template.text(l, w, h);
+                answer = template.answer(l, w, h);
+                hint = template.hint();
+                solutionExplanation = template.solutionExplanation(l, w, h, answer);
+            } else if (template.type === 'read_analog_clock') {
+                const data = template.generate();
+                problemText = template.text(data.hour, data.minute);
+                answer = template.answer(data.hour, data.minute);
+                visualHtml = template.visual(data.hour, data.minute);
+                solutionExplanation = template.solutionExplanation(data.hour, data.minute, answer);
+            }
+
+            return { problemText, answer: String(answer).toLowerCase(), hint, solutionExplanation, inputType, visualHtml, domain: 'measurement' };
+        };
+
+        const generateFractionsProblem = () => {
+            const problemTemplates = [
+                // Identifying fractions from visuals (simple shapes)
+                {
+                    type: 'identify_fraction_visual',
+                    text: (numerator, denominator) => `What fraction of the circle is colored blue? (e.g., 1/2)`,
+                    answer: (numerator, denominator) => {
+                        const gcd = (a, b) => (b === 0) ? a : gcd(b, a % b);
+                        const common = gcd(numerator, denominator);
+                        return `${numerator / common}/${denominator / common}`;
+                    },
+                    hint: () => `Count the blue parts for the top number, and total parts for the bottom number. Simplify if possible.`,
+                    solutionExplanation: (numerator, denominator, answer) => `There are ${numerator} blue parts out of ${denominator} total parts. The fraction is ${numerator}/${denominator}, which simplifies to ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const denominator = [2, 3, 4, 5, 6, 8][getRandomInt(0, 5)];
+                        const numerator = getRandomInt(1, denominator - 1);
+                        let svgPaths = '';
+                        const radius = 40;
+                        const centerX = 50, centerY = 50;
+                        const angleStep = 360 / denominator;
+
+                        for (let i = 0; i < denominator; i++) {
+                            const startAngle = i * angleStep;
+                            const endAngle = (i + 1) * angleStep;
+                            const x1 = centerX + radius * Math.cos(Math.PI * startAngle / 180);
+                            const y1 = centerY + radius * Math.sin(Math.PI * startAngle / 180);
+                            const x2 = centerX + radius * Math.cos(Math.PI * endAngle / 180);
+                            const y2 = centerY + radius * Math.sin(Math.PI * endAngle / 180);
+                            const largeArcFlag = angleStep > 180 ? 1 : 0;
+                            const color = i < numerator ? '#4299e1' : '#a0aec0'; // Blue for numerator, grey for rest
+                            svgPaths += `<path d="M${centerX},${centerY} L${x1},${y1} A${radius},${radius} 0 ${largeArcFlag},1 ${x2},${y2} Z" fill="${color}" stroke="#e0e0e0" stroke-width="0.5"/>`;
+                        }
+                        return { numerator, denominator, svg: `<svg viewBox="0 0 100 100" width="150px" height="150px" class="mx-auto my-4" role="img" aria-label="Circle divided into ${denominator} parts, with ${numerator} parts colored blue.">${svgPaths}</svg>` };
+                    }
+                },
+                // Comparing fractions (simple, same denominator or numerator)
+                {
+                    type: 'compare_fractions_same_denominator',
+                    text: (n1, d, n2) => `Which fraction is larger: ${n1}/${d} or ${n2}/${d}? (e.g., 1/2)`,
+                    answer: (n1, d, n2) => n1 > n2 ? `${n1}/${d}` : `${n2}/${d}`,
+                    hint: () => `When denominators are the same, compare the numerators.`,
+                    solutionExplanation: (n1, d, n2, answer) => `When denominators are the same, the fraction with the larger numerator is greater. ${n1} is ${n1 > n2 ? 'greater' : 'less'} than ${n2}, so ${answer} is larger.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const d = [4, 6, 8, 10][getRandomInt(0, 3)];
+                        let n1 = getRandomInt(1, d - 1);
+                        let n2 = getRandomInt(1, d - 1);
+                        while (n1 === n2) n2 = getRandomInt(1, d - 1);
+                        return { n1, d, n2 };
+                    }
+                },
+                {
+                    type: 'compare_fractions_same_numerator',
+                    text: (n, d1, d2) => `Which fraction is larger: ${n}/${d1} or ${n}/${d2}? (e.g., 1/2)`,
+                    answer: (n, d1, d2) => d1 < d2 ? `${n}/${d1}` : `${n}/${d2}`,
+                    hint: () => `When numerators are the same, the fraction with the smaller denominator is larger.`,
+                    solutionExplanation: (n, d1, d2, answer) => `When numerators are the same, the fraction with the smaller denominator is greater. ${d1} is ${d1 < d2 ? 'smaller' : 'larger'} than ${d2}, so ${answer} is larger.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const n = getRandomInt(1, 3);
+                        let d1 = getRandomInt(4, 10);
+                        let d2 = getRandomInt(4, 10);
+                        while (d1 === d2) d2 = getRandomInt(4, 10);
+                        return { n, d1, d2 };
+                    }
+                },
+                // Adding/Subtracting fractions (same denominator)
+                {
+                    type: 'add_fractions_same_denominator',
+                    text: (n1, d, n2) => `What is ${n1}/${d} + ${n2}/${d}? (e.g., 3/4)`,
+                    answer: (n1, d, n2) => {
+                        const sumNum = n1 + n2;
+                        // Simplify if possible (e.g., 4/4 = 1, 2/4 = 1/2)
+                        if (sumNum === d) return '1';
+                        const gcd = (a, b) => (b === 0) ? a : gcd(b, a % b);
+                        const common = gcd(sumNum, d);
+                        return `${sumNum / common}/${d / common}`;
+                    },
+                    hint: () => `Add the numerators and keep the denominator the same. Simplify if needed.`,
+                    solutionExplanation: (n1, d, n2, answer) => `To add fractions with the same denominator, add the numerators: ${n1} + ${n2} = ${n1 + n2}. Keep the denominator ${d}. So, ${n1 + n2}/${d}, which simplifies to ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const d = [4, 6, 8, 10, 12][getRandomInt(0, 4)];
+                        const n1 = getRandomInt(1, d / 2);
+                        const n2 = getRandomInt(1, d - n1);
+                        return { n1, d, n2 };
+                    }
+                },
+                {
+                    type: 'subtract_fractions_same_denominator',
+                    text: (n1, d, n2) => `What is ${n1}/${d} - ${n2}/${d}? (e.g., 1/4)`,
+                    answer: (n1, d, n2) => {
+                        const diffNum = n1 - n2;
+                        if (diffNum === 0) return '0';
+                        const gcd = (a, b) => (b === 0) ? a : gcd(b, a % b);
+                        const common = gcd(diffNum, d);
+                        return `${diffNum / common}/${d / common}`;
+                    },
+                    hint: () => `Subtract the numerators and keep the denominator the same. Simplify if needed.`,
+                    solutionExplanation: (n1, d, n2, answer) => `To subtract fractions with the same denominator, subtract the numerators: ${n1} - ${n2} = ${n1 - n2}. Keep the denominator ${d}. So, ${n1 - n2}/${d}, which simplifies to ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const d = [4, 6, 8, 10, 12][getRandomInt(0, 4)];
+                        let n1 = getRandomInt(2, d - 1);
+                        let n2 = getRandomInt(1, n1 - 1);
+                        return { n1, d, n2 };
+                    }
+                },
+                // Equivalent Fractions
+                {
+                    type: 'equivalent_fractions',
+                    text: (n1, d1, n2) => `Find the missing number: ${n1}/${d1} = ${n2}/?`,
+                    answer: (n1, d1, n2) => d1 * (n2 / n1),
+                    hint: () => `Figure out what you multiply or divide the top number by, and do the same to the bottom number.`,
+                    solutionExplanation: (n1, d1, n2, answer) => `To find the missing number, see what ${n1} was multiplied by to get ${n2}. (${n2} / ${n1} = ${n2 / n1}). Then multiply ${d1} by the same number: ${d1} * ${n2 / n1} = ${answer}.`,
+                    inputType: 'number',
+                    generate: () => {
+                        const d1 = [4, 6, 8, 10, 12][getRandomInt(0, 4)];
+                        const n1 = getRandomInt(1, d1 - 1);
+                        const multiplier = getRandomInt(2, 3); // Simple multipliers
+                        const n2 = n1 * multiplier;
+                        return { n1, d1, n2 };
+                    }
+                },
+                // Fractions on a Number Line (simple)
+                {
+                    type: 'fraction_on_number_line',
+                    text: (n, d) => `What fraction is marked on the number line? (e.g., 1/2)`,
+                    answer: (n, d) => `${n}/${d}`,
+                    hint: () => `Count the total divisions for the denominator, and the marked division for the numerator.`,
+                    solutionExplanation: (n, d, answer) => `The number line is divided into ${d} equal parts, and the mark is at the ${n}th part. So the fraction is ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const d = [4, 6, 8][getRandomInt(0, 2)]; // Denominators like 4, 6, 8
+                        const n = getRandomInt(1, d - 1);
+                        let svg = `
+                            <svg viewBox="0 0 200 50" width="200px" height="50px" class="mx-auto my-4" role="img" aria-label="Number line showing a fraction at ${n} out of ${d} divisions.">
+                                <!-- Line -->
+                                <line x1="10" y1="25" x2="190" y1="25" stroke="#e0e0e0" stroke-width="2"/>
+                                <!-- Marks -->
+                                <circle cx="10" cy="25" r="3" fill="#e0e0e0"/>
+                                <text x="10" y="40" text-anchor="middle" fill="#e0e0e0" font-size="10">0</text>
+                                <circle cx="190" cy="25" r="3" fill="#e0e0e0"/>
+                                <text x="190" y="40" text-anchor="middle" fill="#e0e0e0" font-size="10">1</text>
+                        `;
+                        const segmentWidth = (180 - 10) / d;
+                        for (let i = 1; i < d; i++) {
+                            const x = 10 + i * segmentWidth;
+                            svg += `<line x1="${x}" y1="20" x2="${x}" y2="30" stroke="#e0e0e0" stroke-width="1"/>`;
+                        }
+                        // Marked fraction
+                        const markedX = 10 + n * segmentWidth;
+                        svg += `<circle cx="${markedX}" cy="25" r="5" fill="#e53e3e"/>`; // Red dot for the answer
+                        svg += `</svg>`;
+                        return { n, d, svg };
+                    }
+                },
+                // Mixed Numbers and Improper Fractions
+                {
+                    type: 'mixed_to_improper',
+                    text: (whole, numerator, denominator) => `Convert the mixed number ${whole} ${numerator}/${denominator} to an improper fraction. (e.g., 7/3)`,
+                    answer: (whole, numerator, denominator) => `${(whole * denominator) + numerator}/${denominator}`,
+                    hint: () => `Multiply the whole number by the denominator, then add the numerator. Keep the same denominator.`,
+                    solutionExplanation: (whole, numerator, denominator, answer) => `To convert, multiply the whole number (${whole}) by the denominator (${denominator}), then add the numerator (${numerator}). Keep the same denominator. So, (${whole} * ${denominator}) + ${numerator} = ${(whole * denominator) + numerator}. The improper fraction is ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const denominator = getRandomInt(2, 5);
+                        const whole = getRandomInt(1, 3);
+                        const numerator = getRandomInt(1, denominator - 1);
+                        return { whole, numerator, denominator };
+                    }
+                },
+                {
+                    type: 'improper_to_mixed',
+                    text: (numerator, denominator) => `Convert the improper fraction ${numerator}/${denominator} to a mixed number. (e.g., 2 1/3)`,
+                    answer: (numerator, denominator) => {
+                        const whole = Math.floor(numerator / denominator);
+                        const remainder = numerator % denominator;
+                        if (remainder === 0) return String(whole);
+                        return `${whole} ${remainder}/${denominator}`;
+                    },
+                    hint: () => `Divide the numerator by the denominator. The quotient is the whole number, and the remainder is the new numerator.`,
+                    solutionExplanation: (numerator, denominator, answer) => `Divide the numerator (${numerator}) by the denominator (${denominator}). ${numerator} / ${denominator} = ${Math.floor(numerator / denominator)} with a remainder of ${numerator % denominator}. So the mixed number is ${answer}.`,
+                    inputType: 'text',
+                    generate: () => {
+                        const denominator = getRandomInt(2, 5);
+                        const whole = getRandomInt(1, 3);
+                        const numerator = (whole * denominator) + getRandomInt(1, denominator - 1);
+                        return { numerator, denominator };
+                    }
+                }
+            ];
+
+            const template = problemTemplates[getRandomInt(0, problemTemplates.length - 1)];
+            let problemText, answer, hint, solutionExplanation, visualHtml = '', inputType = template.inputType;
+
+            if (template.type === 'identify_fraction_visual') {
+                const data = template.generate();
+                problemText = template.text(data.numerator, data.denominator);
+                answer = template.answer(data.numerator, data.denominator);
+                visualHtml = data.svg;
+                solutionExplanation = template.solutionExplanation(data.numerator, data.denominator, answer);
+            } else if (template.type.startsWith('compare_fractions_') || template.type.startsWith('add_fractions_') || template.type.startsWith('subtract_fractions_')) {
+                const data = template.generate();
+                problemText = template.text(data.n1 || data.n, data.d || data.d1, data.n2 || data.d2);
+                answer = template.answer(data.n1 || data.n, data.d || data.d1, data.n2 || data.d2);
+                solutionExplanation = template.solutionExplanation(data.n1 || data.n, data.d || data.d1, data.n2 || data.d2, answer);
+            } else if (template.type === 'equivalent_fractions') {
+                const data = template.generate();
+                problemText = template.text(data.n1, data.d1, data.n2);
+                answer = template.answer(data.n1, data.d1, data.n2);
+                solutionExplanation = template.solutionExplanation(data.n1, data.d1, data.n2, answer);
+            } else if (template.type === 'fraction_on_number_line') {
+                const data = template.generate();
+                problemText = template.text(data.n, data.d);
+                answer = template.answer(data.n, data.d);
+                visualHtml = data.svg;
+                solutionExplanation = template.solutionExplanation(data.n, data.d, answer);
+            } else if (template.type === 'mixed_to_improper') {
+                const data = template.generate();
+                problemText = template.text(data.whole, data.numerator, data.denominator);
+                answer = template.answer(data.whole, data.numerator, data.denominator);
+                solutionExplanation = template.solutionExplanation(data.whole, data.numerator, data.denominator, answer);
+            } else if (template.type === 'improper_to_mixed') {
+                const data = template.generate();
+                problemText = template.text(data.numerator, data.denominator);
+                answer = template.answer(data.numerator, data.denominator);
+                solutionExplanation = template.solutionExplanation(data.numerator, data.denominator, answer);
+            }
+
+            return { problemText, answer: String(answer).toLowerCase(), hint, solutionExplanation, inputType, visualHtml, domain: 'fractions' };
+        };
+
+        const generateDataAnalysisProblem = () => {
+            const problemTemplates = [
+                // Bar Chart (already present, refining)
+                {
+                    type: 'bar_chart_most_least_total',
+                    text: (questionType, dataPoints) => {
+                        if (questionType === 'most') return `This chart shows the number of droids of different colors. Which color has the MOST droids?`;
+                        if (questionType === 'least') return `Which color of droid is least common on the chart?`;
+                        if (questionType === 'total') return `What is the TOTAL number of droids shown in the chart?`;
+                    },
+                    answer: (questionType, dataPoints) => {
+                        if (questionType === 'most') return dataPoints.reduce((max, d) => d.value > max.value ? d : max).label;
+                        if (questionType === 'least') return dataPoints.reduce((min, d) => d.value < min.value ? d : min).label;
+                        if (questionType === 'total') return dataPoints.reduce((sum, d) => sum + d.value, 0);
+                    },
+                    hint: (questionType) => {
+                        if (questionType === 'most') return `Look for the tallest bar on the chart.`;
+                        if (questionType === 'least') return `Look for the shortest bar on the chart.`;
+                        if (questionType === 'total') return `Add up all the numbers on the bars.`;
+                    },
+                    solutionExplanation: (questionType, dataPoints, answer) => {
+                        if (questionType === 'most') return `The tallest bar represents the color with the most droids, which is ${answer}.`;
+                        if (questionType === 'least') return `The shortest bar represents the color with the least droids, which is ${answer}.`;
+                        if (questionType === 'total') return `To find the total, add the values from all bars: ${dataPoints.map(d => d.value).join(' + ')} = ${answer}.`;
+                    },
+                    inputType: (questionType) => questionType === 'total' ? 'number' : 'text',
+                    generate: () => {
+                        const numDataPoints = getRandomInt(3, 5);
+                        const labels = ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange', 'Black'].slice(0, numDataPoints);
+                        const dataPoints = labels.map(label => ({ label, value: getRandomInt(1, 10) }));
+                        const questionType = ['most', 'least', 'total'][getRandomInt(0, 2)];
+                        return { dataPoints, questionType };
+                    },
+                    visual: (dataPoints) => {
+                        const maxVal = Math.max(...dataPoints.map(d => d.value));
+                        return `
+                            <div class="bar-chart-container" role="img" aria-label="Bar chart showing droid counts by color.">
+                                ${dataPoints.map(d => `
+                                    <div class="bar-chart-bar" style="height: ${d.value / maxVal * 80 + 20}%;">
+                                        <span class="value-label">${d.value}</span>
+                                        <span>${d.label}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+                },
+                // Pictograph (simple, using emojis)
+                {
+                    type: 'pictograph_count',
+                    text: (item, countPerIcon, totalIcons) => `Each ⚙️ represents ${countPerIcon} ${item}. How many ${item} are there in total?`,
+                    answer: (item, countPerIcon, totalIcons) => countPerIcon * totalIcons,
+                    hint: () => `Multiply the number of icons by the value each icon represents.`,
+                    solutionExplanation: (item, countPerIcon, totalIcons, answer) => `Multiply the number of gear icons (${totalIcons}) by the value of each icon (${countPerIcon}): ${totalIcons} * ${countPerIcon} = ${answer} ${item}.`,
+                    inputType: 'number',
+                    generate: () => {
+                        const items = ['power cells', 'data chips', 'repair kits'];
+                        const item = items[getRandomInt(0, items.length - 1)];
+                        const countPerIcon = [2, 5, 10][getRandomInt(0, 2)];
+                        const totalIcons = getRandomInt(3, 7);
+                        return { item, countPerIcon, totalIcons };
+                    },
+                    visual: (totalIcons) => {
+                        let icons = '';
+                        for (let i = 0; i < totalIcons; i++) {
+                            icons += '⚙️ ';
+                        }
+                        return `<div class="text-center text-3xl my-4" role="img" aria-label="Pictograph showing ${totalIcons} gear icons.">${icons}</div>`;
+                    }
+                },
+                // Line Graph (simple trend)
+                {
+                    type: 'line_graph_read_point',
+                    text: (day, value) => `This line graph shows droid repairs over days. How many droids were repaired on Day ${day}?`,
+                    answer: (day, value) => value,
+                    hint: () => `Find Day ${day} on the bottom axis and read up to the line, then across to the side axis.`,
+                    solutionExplanation: (day, value) => `On Day ${day}, follow the line up to the point and then across to the vertical axis to read the number of repairs, which is ${value}.`,
+                    inputType: 'number',
+                    generate: () => {
+                        const data = [
+                            { day: 1, repairs: getRandomInt(5, 15) },
+                            { day: 2, repairs: getRandomInt(5, 15) },
+                            { day: 3, repairs: getRandomInt(5, 15) },
+                            { day: 4, repairs: getRandomInt(5, 15) },
+                            { day: 5, repairs: getRandomInt(5, 15) }
+                        ];
+                        const questionDay = getRandomInt(1, 5);
+                        const questionData = data.find(d => d.day === questionDay);
+                        return { data, questionDay, questionValue: questionData.repairs };
+                    },
+                    visual: (data) => {
+                        const width = 300, height = 120, padding = 30;
+                        const svgWidth = width + padding * 2;
+                        const svgHeight = height + padding * 2;
+
+                        const maxRepairs = Math.max(...data.map(d => d.repairs));
+                        const xStep = width / (data.length - 1);
+                        const yScale = height / maxRepairs;
+
+                        let points = data.map((d, i) => `${padding + i * xStep},${height + padding - d.repairs * yScale}`).join(' ');
+
+                        let svg = `<svg class="line-chart-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="Line graph showing droid repairs over 5 days.">`;
+                        // X-axis
+                        svg += `<line x1="${padding}" y1="${height + padding}" x2="${width + padding}" y2="${height + padding}" stroke="#e0e0e0" stroke-width="1"/>`;
+                        // Y-axis
+                        svg += `<line x1="${padding}" y1="${padding}" x2="${padding}" y2="${height + padding}" stroke="#e0e0e0" stroke-width="1"/>`;
+
+                        // Grid lines and labels
+                        for (let i = 0; i <= maxRepairs; i += Math.max(1, Math.floor(maxRepairs / 5))) { // Y-axis labels
+                            const y = height + padding - i * yScale;
+                            svg += `<line x1="${padding}" y1="${y}" x2="${width + padding}" y2="${y}" class="grid-line"/>`;
+                            svg += `<text x="${padding - 5}" y="${y + 3}" text-anchor="end">${i}</text>`;
+                        }
+                        data.forEach((d, i) => { // X-axis labels
+                            const x = padding + i * xStep;
+                            svg += `<text x="${x}" y="${height + padding + 15}" text-anchor="middle">Day ${d.day}</text>`;
+                        });
+
+                        // Data line
+                        svg += `<polyline points="${points}" class="data-line"/>`;
+                        // Data points
+                        data.forEach((d, i) => {
+                            const x = padding + i * xStep;
+                            const y = height + padding - d.repairs * yScale;
+                            svg += `<circle cx="${x}" cy="${y}" class="data-point"/>`;
+                        });
+
+                        svg += `</svg>`;
+                        return svg;
+                    }
+                },
+                // Tally Chart (simple counting)
+                {
+                    type: 'tally_chart_count',
+                    text: (item) => `This tally chart shows the number of ${item}. How many ${item} are there?`,
+                    answer: (item, tallyCount) => tallyCount,
+                    hint: () => `Each group of four vertical lines and one diagonal line represents five.`,
+                    solutionExplanation: (tallyCount) => `Count the tally marks. Each group of five (four vertical, one diagonal) is 5. Add any remaining single marks. The total is ${tallyCount}.`,
+                    inputType: 'number',
+                    generate: () => {
+                        const items = ['droids', 'power cells', 'data chips'];
+                        const item = items[getRandomInt(0, items.length - 1)];
+                        const tallyCount = getRandomInt(5, 25);
+                        let tallyString = '';
+                        for (let i = 0; i < Math.floor(tallyCount / 5); i++) {
+                            tallyString += '| | | | \\ '; // Clear text representation for 5
+                        }
+                        for (let i = 0; i < tallyCount % 5; i++) {
+                            tallyString += '| ';
+                        }
+                        return { item, tallyCount, tallyString };
+                    },
+                    visual: (tallyString) => `<div class="text-center text-xl font-mono my-4" role="img" aria-label="Tally chart representing a count.">${tallyString}</div>`
+                },
+                // Simple Mean/Average
+                {
+                    type: 'simple_mean',
+                    text: (values) => `A Jedi repaired ${values.join(', ')} droids over ${values.length} days. What is the average number of droids repaired per day?`,
+                    answer: (values) => values.reduce((sum, val) => sum + val, 0) / values.length,
+                    hint: () => `Add all the numbers together and then divide by how many numbers there are.`,
+                    solutionExplanation: (values, answer) => `To find the average, sum the values (${values.join(' + ')}) = ${values.reduce((sum, val) => sum + val, 0)}. Then divide by the count of values (${values.length}): ${values.reduce((sum, val) => sum + val, 0)} / ${values.length} = ${answer}.`,
+                    inputType: 'number',
+                    generate: () => {
+                        const numDays = getRandomInt(3, 5);
+                        const values = Array.from({ length: numDays }, () => getRandomInt(5, 15));
+                        return { values };
+                    }
+                }
+            ];
+
+            const template = problemTemplates[getRandomInt(0, problemTemplates.length - 1)];
+            let problemText, answer, hint, solutionExplanation, visualHtml = '', inputType = template.inputType;
+
+            if (template.type === 'bar_chart_most_least_total') {
+                const data = template.generate();
+                problemText = template.text(data.questionType, data.dataPoints);
+                answer = template.answer(data.questionType, data.dataPoints);
+                visualHtml = template.visual(data.dataPoints);
+                inputType = template.inputType(data.questionType);
+                solutionExplanation = template.solutionExplanation(data.questionType, data.dataPoints, answer);
+            } else if (template.type === 'pictograph_count') {
+                const data = template.generate();
+                problemText = template.text(data.item, data.countPerIcon, data.totalIcons);
+                answer = template.answer(data.item, data.countPerIcon, data.totalIcons);
+                visualHtml = data.visual(data.totalIcons);
+                solutionExplanation = template.solutionExplanation(data.item, data.countPerIcon, data.totalIcons, answer);
+            } else if (template.type === 'line_graph_read_point') {
+                const data = template.generate();
+                problemText = template.text(data.questionDay, data.questionValue);
+                answer = template.answer(data.questionDay, data.questionValue);
+                visualHtml = template.visual(data.data);
+                solutionExplanation = template.solutionExplanation(data.questionDay, data.questionValue, answer);
+            } else if (template.type === 'tally_chart_count') {
+                const data = template.generate();
+                problemText = template.text(data.item);
+                answer = data.tallyCount;
+                visualHtml = data.visual(data.tallyString);
+                solutionExplanation = template.solutionExplanation(data.tallyCount);
+            } else if (template.type === 'simple_mean') {
+                const data = template.generate();
+                problemText = template.text(data.values);
+                answer = data.answer(data.values);
+                solutionExplanation = template.solutionExplanation(data.values, answer);
+            }
+
+            return { problemText, answer: String(answer).toLowerCase(), hint, solutionExplanation, inputType, visualHtml, domain: 'data_analysis' };
+        };
+
+        const generateDecimalsProblem = () => {
+            const problemTemplates = [
+                {
+                    type: 'decimal_add_tenths',
+                    text: (num1, num2) => `What is ${num1.toFixed(1)} + ${num2.toFixed(1)}?`,
+                    answer: (num1, num2) => (num1 + num2).toFixed(1),
+                    hint: () => `Align the decimal points and add like whole numbers.`,
+                    solutionExplanation: (num1, num2, answer) => `To add decimals, align the decimal points: ${num1.toFixed(1)} + ${num2.toFixed(1)} = ${answer}.`,
+                    min1: 0.1, max1: 0.9, min2: 0.1, max2: 0.9, step: 0.1
+                },
+                {
+                    type: 'decimal_sub_tenths',
+                    text: (num1, num2) => `What is ${num1.toFixed(1)} - ${num2.toFixed(1)}?`,
+                    answer: (num1, num2) => (num1 - num2).toFixed(1),
+                    hint: () => `Align the decimal points and subtract like whole numbers.`,
+                    solutionExplanation: (num1, num2, answer) => `To subtract decimals, align the decimal points: ${num1.toFixed(1)} - ${num2.toFixed(1)} = ${answer}.`,
+                    min1: 1.0, max1: 2.0, min2: 0.1, max2: 0.9, step: 0.1
+                },
+                {
+                    type: 'decimal_compare',
+                    text: (num1, num2) => `Which decimal is greater: ${num1.toFixed(2)} or ${num2.toFixed(2)}?`,
+                    answer: (num1, num2) => Math.max(num1, num2).toFixed(2),
+                    hint: () => `Compare digit by digit from left to right.`,
+                    solutionExplanation: (num1, num2, answer) => `To compare decimals, look at the digits from left to right. ${num1.toFixed(2)} vs ${num2.toFixed(2)}. The greater number is ${answer}.`,
+                    min: 0.01, max: 0.99, step: 0.01
+                }
+            ];
+
+            const template = problemTemplates[getRandomInt(0, problemTemplates.length - 1)];
+            let problemText, answer, hint, solutionExplanation, visualHtml = '', inputType = 'text'; // Decimals are often input as text
+
+            if (template.type.includes('tenths')) {
+                const num1 = parseFloat((getRandomInt(template.min1 * 10, template.max1 * 10) / 10).toFixed(1));
+                let num2 = parseFloat((getRandomInt(template.min2 * 10, template.max2 * 10) / 10).toFixed(1));
+                if (template.type === 'decimal_sub_tenths' && num1 < num2) { // Ensure positive result for subtraction
+                    [num1, num2] = [num2, num1]; // Swap if num1 is smaller
+                }
+                problemText = template.text(num1, num2);
+                answer = template.answer(num1, num2);
+                hint = template.hint();
+                solutionExplanation = template.solutionExplanation(num1, num2, answer);
+            } else if (template.type === 'decimal_compare') {
+                const num1 = parseFloat((getRandomInt(template.min * 100, template.max * 100) / 100).toFixed(2));
+                let num2 = parseFloat((getRandomInt(template.min * 100, template.max * 100) / 100).toFixed(2));
+                while (num1 === num2) {
+                    num2 = parseFloat((getRandomInt(template.min * 100, template.max * 100) / 100).toFixed(2));
+                }
+                problemText = template.text(num1, num2);
+                answer = template.answer(num1, num2);
+                hint = template.hint();
+                solutionExplanation = template.solutionExplanation(num1, num2, answer);
+            }
+            // Ensure answer is always a string for comparison
+            answer = String(answer);
+
+            return { problemText, answer, hint, solutionExplanation, inputType, visualHtml, domain: 'decimals' };
+        };
+
+
+        // Function to generate a new math problem
+        function generateProblem() {
+            // Check if a round is complete
+            if (problemsSolvedInCurrentRound >= problemsPerRound) {
+                endRound(); // Call endRound to handle messages and reset round progress
+                return; // Prevent generating a new problem immediately after endRound
+            }
+
+            attempts = 0; // Reset attempts for new problem
+            hintBtn.classList.add('hidden'); // Hide hint button initially
+            feedback.textContent = ''; // Clear feedback text
+            feedback.classList.remove('show', 'correct', 'incorrect', 'hint'); // Hide feedback container
+
+
+            // Randomly select one of the focus problem types and generate problem
+            const type = problemTypes[getRandomInt(0, problemTypes.length - 1)];
+            let problemData;
+            if (type === 'geometry') {
+                problemData = generateGeometryProblem();
+            } else if (type === 'algebra') {
+                problemData = generateAlgebraProblem();
+            } else if (type === 'measurement') {
+                problemData = generateMeasurementProblem();
+            } else if (type === 'fractions') {
+                problemData = generateFractionsProblem();
+            } else if (type === 'data_analysis') {
+                problemData = generateDataAnalysisProblem();
+            } else if (type === 'decimals') { // New decimal problem type
+                problemData = generateDecimalsProblem();
+            }
+
+            currentProblem = problemData;
+            problemDisplay.textContent = currentProblem.problemText;
+            visualAid.innerHTML = currentProblem.visualHtml; // Display visual aid
+            answerInput.value = '';
+            answerInput.focus();
+            answerInput.type = currentProblem.inputType; // Set input type dynamically
+        }
+
+        // Function to check the user's answer
+        function checkAnswer() {
+            const userAnswer = answerInput.value.trim(); // Trim whitespace
+            let expectedAnswer = String(currentProblem.answer); // Get expected answer as string
+
+            currentSessionStats.problemsAttempted++;
+            currentSessionStats.domainStats[currentProblem.domain].attempted++;
+
+            // Show feedback container
+            feedback.classList.add('show');
+
+            let isCorrect = false;
+
+            // Special handling for number type answers to ensure strict comparison
+            if (currentProblem.inputType === 'number') {
+                const parsedUserAnswer = parseFloat(userAnswer);
+                const parsedExpectedAnswer = parseFloat(expectedAnswer);
+
+                if (isNaN(parsedUserAnswer)) {
+                    feedback.textContent = "Please enter a valid number, young Padawan!";
+                    feedback.className = 'feedback-message incorrect show';
+                    return;
+                }
+                isCorrect = (parsedUserAnswer === parsedExpectedAnswer);
+            } else { // Text input type (e.g., shape names, fraction strings, time strings, decimals as text)
+                isCorrect = (userAnswer.toLowerCase() === expectedAnswer.toLowerCase());
+            }
+
+            if (isCorrect) {
+                feedback.textContent = 'Correct! Droid component repaired!';
+                feedback.className = 'feedback-message correct show';
+                score++; // Increment overall score
+                problemsSolvedInCurrentRound++; // Increment round progress
+                currentSessionStats.score = score; // Update session score
+                currentSessionStats.problemsCorrect++;
+                currentSessionStats.domainStats[currentProblem.domain].correct++;
+
+                scoreDisplay.textContent = score; // Update overall score display
+                updateProgressBar(); // Update round progress bar
+                updateDroidSlot(problemsSolvedInCurrentRound - 1, true); // Mark current droid slot as repaired
+
+                droidDisplay.classList.add('repaired');
+                setTimeout(() => {
+                    droidDisplay.classList.remove('repaired');
+                    generateProblem(); // Generate next problem (will trigger endRound if needed)
+                }, 1000);
+            } else {
+                attempts++;
+                if (attempts === 1) {
+                    feedback.textContent = 'Not quite, young Padawan. Try again!';
+                    feedback.className = 'feedback-message incorrect show';
+                    hintBtn.classList.remove('hidden');
+                } else if (attempts === 2) {
+                    // Show detailed explanation in modal
+                    let explanationMessage = `The correct answer was: ${expectedAnswer}.\n\n`;
+                    if (currentProblem.solutionExplanation) {
+                        explanationMessage += `Here's how to solve it:\n${currentProblem.solutionExplanation}`;
+                    } else {
+                        explanationMessage += `No detailed explanation is available for this problem, but practice helps!`;
+                    }
+                    showMessage(explanationMessage);
+
+                    // Reset messageBoxCloseBtn behavior to generate new problem after explanation
+                    messageBoxCloseBtn.onclick = () => {
+                        hideMessageBox();
+                        hintBtn.classList.add('hidden');
+                        generateProblem();
+                        messageBoxCloseBtn.onclick = hideMessageBox; // Reset default close behavior
+                    };
+
+                    feedback.textContent = `Still not correct. Let's try a new problem after this explanation!`;
+                    feedback.className = 'feedback-message incorrect show';
+                    hintBtn.classList.add('hidden');
+                }
+                answerInput.value = '';
+                answerInput.focus();
+            }
+        }
+
+
+        // Function to provide a hint
+        function showHint() {
+            // Added a check to ensure currentProblem.hint is defined before accessing
+            if (currentProblem.hint) {
+                feedback.textContent = `Hint: ${currentProblem.hint}`;
+                feedback.className = 'feedback-message hint show';
+            } else {
+                feedback.textContent = 'No hint available for this problem.';
+                feedback.className = 'feedback-message hint show';
+                console.warn("Hint was requested but currentProblem.hint is undefined.");
+            }
+            hintBtn.classList.add('hidden'); // Hide hint button after showing hint
+            answerInput.focus(); // Keep focus on input after hint
+        }
+
+        // Function to update the progress bar (for current round)
+        function updateProgressBar() {
+            const progress = (problemsSolvedInCurrentRound / problemsPerRound) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Function to end the current round and prepare for the next
+        function endRound() {
+            let roundMessage = '';
+            if (problemsSolvedInCurrentRound === problemsPerRound) {
+                roundMessage = `Round Complete! You repaired all ${problemsPerRound} droids in this round!`;
+            } else {
+                roundMessage = `Round Complete! You repaired ${problemsSolvedInCurrentRound} out of ${problemsPerRound} droids in this round.`;
+            }
+            showMessage(roundMessage + " Prepare for the next challenge!");
+
+            // Save the session data before resetting for the next round
+            saveGameSession();
+
+            // Reset round progress and slots after message is acknowledged
+            messageBoxCloseBtn.onclick = () => {
+                hideMessageBox();
+                problemsSolvedInCurrentRound = 0;
+                resetDroidSlots();
+                updateProgressBar(); // Reset progress bar visual
+                // Reset current session stats for the new round
+                currentSessionStats = {
+                    score: 0, // This will be reset per round, or you might want to accumulate it globally
+                    problemsAttempted: 0,
+                    problemsCorrect: 0,
+                    domainStats: {
+                        geometry: { correct: 0, attempted: 0 },
+                        algebra: { correct: 0, attempted: 0 },
+                        measurement: { correct: 0, attempted: 0 },
+                        fractions: { correct: 0, attempted: 0 },
+                        data_analysis: { correct: 0, attempted: 0 },
+                        decimals: { correct: 0, attempted: 0 }
+                    }
+                };
+                generateProblem(); // Start a new round
+                messageBoxCloseBtn.onclick = hideMessageBox; // Reset default close behavior
+            };
+        }
+
+        // Event listeners
+        submitBtn.addEventListener('click', checkAnswer);
+        hintBtn.addEventListener('click', showHint); // Hint button listener
+        answerInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        // Initialize game on window load
+        window.onload = function() {
+            createStars(); // Create the starfield background
+            initializeDroidSlots(); // Initialize the droid repair slots
+            generateProblem(); // Start the first problem
+            updateProgressBar(); // Initialize progress bar
+            // You can load previous game data here if you want to display it,
+            // but the current request only asks for storage.
+            // const allGameSessions = loadGameData();
+            // console.log("All previous game sessions:", allGameSessions);
+        };
+    </script>
+</body>
+</html>
